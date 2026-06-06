@@ -2,9 +2,11 @@ import './scss/styles.scss';
 import { Catalog } from './components/moduls/Catalog';
 import { Cart } from './components/moduls/Cart';
 import { Purchase } from './components/moduls/Purchase';
+import { API_URL } from './utils/constants';
 import { StoreApi } from './components/moduls/StoreApi';
 import { Api } from './components/base/Api';
 import { apiProducts } from './utils/data';
+
 
 // Проверка Catalog
 const catalogModel = new Catalog();
@@ -43,7 +45,7 @@ console.log('Корзина после удаления товара:', cartMode
 console.log('Количество после удаления:', cartModel.getCountProducts());
 console.log('Стоимость после удаления:', cartModel.getCostProducts());
 
-cartModel.cleaningCart();
+cartModel.cleanCart();
 
 console.log('Корзина после очистки:', cartModel.getProductsList());
 
@@ -82,7 +84,7 @@ console.log('Данные покупателя после очистки:', purc
 
 
 // Проверка слоя коммуникации
-const baseApi = new Api(import.meta.env.VITE_API_ORIGIN);
+const baseApi = new Api(API_URL);
 const storeApi = new StoreApi(baseApi);
 
 storeApi

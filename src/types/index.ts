@@ -35,3 +35,5 @@ export type OrderResponse = {
   id: string;
   total: number;
 };
+
+export type ValidationErrors = Partial<Record<keyof Customer, string>>;

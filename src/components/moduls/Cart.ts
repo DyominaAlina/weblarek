@@ -35,7 +35,7 @@ export class Cart {
     return this.selectedProducts.some((item) => item.id === id);
   }
 
-  cleaningCart(): void {
+  cleanCart(): void {
     this.selectedProducts = [];
   }
 }

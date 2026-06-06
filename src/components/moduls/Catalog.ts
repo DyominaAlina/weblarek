@@ -2,14 +2,14 @@ import { Product } from '../../types';
 
 export class Catalog {
   protected productList: Product[];
-  protected product: Product;
+  protected product: Product | null;
 
-  constructor(productList: Product[] = [], product: Product) {
+  constructor(productList: Product[] = [], product: Product | null = null) {
     this.productList = productList;
     this.product = product;
   }
 
-  getCard(): Product{
+  getCard(): Product | null{
     return this.product;
   }
 

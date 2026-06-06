@@ -7,11 +7,11 @@ export class StoreApi {
     this.api = api;
   }
 
-  getProductList(): Promise<ApiProductListResponse> {
-  return this.api.get<ApiProductListResponse>('/api/weblarek/product/');
+ getProductList(): Promise<ApiProductListResponse> {
+  return this.api.get<ApiProductListResponse>('/product/');
   }
 
   createOrder(order: OrderRequest): Promise<OrderResponse> {
-  return this.api.post<OrderResponse>('/api/weblarek/order/', order);
+  return this.api.post<OrderResponse>('/order/', order);
   }
 }
