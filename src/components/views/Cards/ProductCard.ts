@@ -1,0 +1,31 @@
+import { ensureElement } from "../../../utils/utils";
+import { Component } from "../../base/Component";
+
+
+export interface IProductCard {
+  id: string;
+  title: string;
+  price: number | null;
+}
+
+export class ProductCard<T> extends Component<T & IProductCard> {
+  protected titleElement: HTMLElement;
+  protected priceElement: HTMLElement;
+
+  constructor (container:HTMLElement) {
+    super(container);
+    this.titleElement = ensureElement<HTMLElement>('.card__title', this.container);
+    this.priceElement = ensureElement<HTMLElement>('.card__price', this.container);
+  }
+
+  set id(value: string) {
+    this.container.dataset.id = value;
+  }
+
+  set title (value: string) {
+    this.titleElement.textContent = value;
+  }
+  set price (value: number | null) {
+    this.priceElement.textContent = value === null ? "Бесценно" : `${value}  синапсов`
+  }
+}

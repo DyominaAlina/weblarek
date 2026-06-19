@@ -1,3 +1,4 @@
+
 export type ApiPostMethods = 'POST' | 'PUT' | 'DELETE';
 
 export interface IApi {
@@ -37,3 +38,13 @@ export type OrderResponse = {
 };
 
 export type ValidationErrors = Partial<Record<keyof Customer, string>>;
+
+export interface Product {
+  id: string;
+  title: string;
+  image: string;
+  category: string;
+  price: number | null;
+  description: string;
+}
+

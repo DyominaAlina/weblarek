@@ -184,3 +184,150 @@ Presenter - презентер содержит основную логику п
 Методы:  
 `getProductList(): Promise<ApiProductListResponse>` — выполняет GET-запрос на эндпоинт `/product/` и возвращает объект, содержащий общее количество товаров и массив товаров.  
 `createOrder(order: OrderRequest): Promise<OrderResponse>` — выполняет POST-запрос на эндпоинт `/order/`, отправляет данные покупателя и идентификаторы выбранных товаров, возвращает объект с подтверждением заказа и итоговой суммой.
+
+## Слой Представления
+### Класс Header
+Отвечает за отображение значка корзины со счетчиком товаров в шапке страницы.
+
+Конструктор:
+`constructor(events:IEvents, counter:HTMLElement)` - принимает корневой элемент шапки и объект брокера событий для обработки действий пользователя.
+
+Поля класса:
+`busketButton:HTMLButtonElement` - кнопка для открытия модального окна корзины.
+`counterElement:HTMLElement` - элемент счетчика товаров в корзине.
+
+Методы:
+`set counter(value:number)` - устанавливает новое значение счетчика товаров в корзине.
+
+### Класс Gallery
+Отвечает за отображение каталога товаров на главной странице.
+
+Конструктор:
+`constructor(container: HTMLElement)` - принимает контейнер галереи товаров.
+
+Поля класса:
+`galleryItems: HTMLElement[]` — массив DOM-элементов карточек товаров, отображаемых в галерее.
+
+Методы:
+`set items(items: HTMLElement[])` — устанавливает список карточек товаров и обновляет содержимое контейнера галереи.
+
+### Класс Modal
+Отвечает за отображение модального окна, установку содержимого, открытие и закрытие модального контейнера.
+
+Конструктор:
+`constructor(container: HTMLElement, events: IEvents)` - принимает корневой DOM-элемент модального окна и объект брокера событий.
+
+Поля класса:
+`closeButton: HTMLButtonElement` — кнопка закрытия модального окна.
+`content: HTMLElement` — контейнер содержимого модального окна.
+
+Методы:
+`set content(value: HTMLElement)` — устанавливает содержимое модального окна.
+`open(): void` — открывает модальное окно.
+`close(): void` — закрывает модальное окно.
+
+### Класс ProductCard
+Базовый родительский класс для всех вариантов карточки товара. Содержит общий для всех карточек функционал отображения данных товара.
+
+Конструктор:
+`constructor(container: HTMLElement, events?: IEvents)` - принимает корневой DOM-элемент карточки и, при необходимости, объект брокера событий.
+
+Поля класса:
+`titleElement: HTMLElement` — элемент названия товара.
+`priceElement: HTMLElement` — элемент цены товара.
+
+Методы:
+`set id(value: string)` — сохраняет идентификатор товара.
+`set title(value: string)` — устанавливает название товара.
+`set price(value: number | null)` — устанавливает цену товара или текст недоступности.
+
+#### Класс CardInGallery
+Отвечает за отображение карточки товара в каталоге на главной странице.
+
+Конструктор:
+`constructor(container: HTMLButtonElement, events: IEvents)` - принимает DOM-элемент карточки каталога и объект брокера событий.
+
+Поля класса:
+`categoryElement: HTMLElement` — элемент категории товара.
+`imageElement: HTMLImageElement` — элемент изображения товара.
+
+Методы:
+`set category(value: string)` — устанавливает категорию товара и модификатор её оформления.
+`set image(value: string)` — устанавливает изображение товара.
+`set selected(value: boolean)` — при необходимости отражает состояние выбранности карточки.
+
+#### Класс CardInCart
+Отвечает за отображение карточки товара в корзине.
+
+Конструктор:
+`constructor(container: HTMLElement, events: IEvents)` — принимает DOM-элемент карточки корзины и объект брокера событий.
+
+Поля класса:
+`indexElement: HTMLElement` — элемент порядкового номера товара в корзине.
+`deleteButton: HTMLButtonElement` — кнопка удаления товара из корзины.
+
+Методы:
+`set index(value: number)` — устанавливает порядковый номер товара в списке корзины.
+
+#### Класс CardDiscription
+Отвечает за отображение подробной карточки товара в модальном окне.
+
+Конструктор:
+`constructor(container: HTMLElement, events: IEvents)` — принимает DOM-элемент карточки подробного просмотра и объект брокера событий.
+
+Поля класса:
+`categoryElement: HTMLElement` — элемент категории товара.
+`imageElement: HTMLImageElement` — элемент изображения товара.
+`descriptionElement: HTMLElement` — элемент описания товара.
+`buttonElement: HTMLButtonElement` — кнопка действия с товаром.
+
+Методы:
+`set category(value: string)` — устанавливает категорию товара и модификатор её оформления.
+`set image(value: string)` — устанавливает изображение товара.
+`set description(value: string)` — устанавливает описание товара.
+`set buttonText(value: string)` — устанавливает текст кнопки действия.
+`set disabled(value: boolean)` — управляет доступностью кнопки действия.
+
+### Класс Forms
+Базовый родительский класс для всех форм приложения. Содержит общий функционал управления полями формы, состоянием кнопки отправки и выводом ошибок валидации.
+
+Конструктор:
+`constructor(container: HTMLFormElement, events: IEvents)` — принимает DOM-элемент формы и объект брокера событий.
+
+Поля класса:
+`submitButton: HTMLButtonElement` — кнопка отправки формы.
+`errorsElement: HTMLElement` — элемент отображения ошибок валидации.
+
+Методы:
+`set valid(value: boolean)` — управляет активностью кнопки отправки формы.
+`set errors(value: string)` — отображает сообщение об ошибках валидации.
+`onInputChange(field: string, value: string): void` — обрабатывает изменение значения поля формы и инициирует соответствующее событие.
+
+#### Класс FormOrder
+Отвечает за отображение формы оформления заказа: выбор способа оплаты и ввод адреса доставки.
+
+Конструктор:
+`constructor(container: HTMLFormElement, events: IEvents)` — принимает DOM-элемент формы заказа и объект брокера событий.
+
+Поля класса:
+`cardButton: HTMLButtonElement` — кнопка выбора онлайн-оплаты.
+`cashButton: HTMLButtonElement` — кнопка выбора оплаты при получении.
+`addressInput: HTMLInputElement` — поле ввода адреса доставки.
+
+Методы:
+`set payment(value: 'card' | 'cash' | '')` — устанавливает выбранный способ оплаты.
+`set address(value: string)` — устанавливает значение поля адреса доставки.
+
+#### Класс FormContacts
+Отвечает за отображение формы ввода контактных данных покупателя.
+
+Конструктор:
+`constructor(container: HTMLFormElement, events: IEvents)` — принимает DOM-элемент формы контактов и объект брокера событий.
+
+Поля класса:
+`emailInput: HTMLInputElement` — поле ввода email.
+`phoneInput: HTMLInputElement` — поле ввода телефона.
+
+Методы:
+`set email(value: string)` — устанавливает значение поля email.
+`set phone(value: string)` — устанавливает значение поля телефона.
