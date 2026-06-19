@@ -7,6 +7,19 @@ import { StoreApi } from './components/moduls/StoreApi';
 import { Api } from './components/base/Api';
 import { apiProducts } from './utils/data';
 
+import { ensureElement, cloneTemplate } from './utils/utils';
+import { EventEmitter } from './components/base/Events';
+import { Header } from './components/views/Header';
+import { Gallery } from './components/views/Gallery';
+import { Modal } from './components/views/Modal';
+import { CardInGallery } from './components/views/Cards/CardInGallery';
+import { CardInCart } from './components/views/Cards/CardInCart';
+import { CardDescription } from './components/views/Cards/CardDescription';
+import { Forms } from './components/views/Forms/Forms';
+import { FormOrder } from './components/views/Forms/FormOrder';
+import { FormContacts } from './components/views/Forms/FormContacts';
+import { Product } from './types/index';
+
 
 // Проверка Catalog
 const catalogModel = new Catalog();
@@ -96,3 +109,7 @@ storeApi
   .catch((error) => {
     console.error('Ошибка при получении товаров с сервера:', error);
   });
+
+  //Проверка слоя представления
+  const events = new EventEmitter();
+
