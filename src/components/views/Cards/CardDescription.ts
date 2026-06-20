@@ -7,7 +7,6 @@ export interface ICardDescriptionActions {
 }
 
 export interface ICardDescription extends IProductCard {
-  id: string;
   category: string;
   image: string;
   description: string;
@@ -34,29 +33,27 @@ export class CardDescription extends ProductCard<ICardDescription> {
       this.buttonElement.addEventListener('click', actions.onClick);
     }
   }
-
-  set id(value:string) {
-    this.container.dataset.id;
-  }
-  set category (value:string) {
+  
+  set category (value: string) {
     this.categoryElement.textContent = value;
 
     Object.keys(categoryMap).forEach((key) => {
       this.categoryElement.classList.toggle(
-        categoryMap [key as CategoryKey]), 
+        categoryMap [key as CategoryKey], 
         key === value
+      );
     })
   }
-  set image(value:string) {
+  set image(value: string) {
     this.setImage(this.imageElement, value, this.titleElement.textContent || '');
   }
   set description(value: string) {
     this.descriptionElement.textContent = value;
   }
-  set buttonText (value:string) {
+  set buttonText (value: string) {
     this.buttonElement.textContent = value;
   }
-  set disabled (value:boolean) {
+  set disabled (value: boolean) {
     this.buttonElement.disabled = value;
   }
 }
