@@ -11,7 +11,7 @@ export class Forms<T> extends Component<T & IForms> {
   protected submitButton: HTMLButtonElement;
   protected errorsElement: HTMLElement;
 
-  constructor ( protected events: IEvents, container: HTMLElement) {
+  constructor ( protected events: IEvents, container: HTMLFormElement) {
     super (container);
     this.submitButton = ensureElement<HTMLButtonElement> ('.button[type="submit"]', this.container);
     this.errorsElement = ensureElement<HTMLElement>('.form__errors', this.container);

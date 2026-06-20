@@ -12,21 +12,21 @@ export class FormOrder extends Forms<IFormOrder> {
   protected cashButton: HTMLButtonElement;
   protected addressInput: HTMLInputElement;
 
-  constructor ( events: IEvents, container: HTMLElement) {
+  constructor ( events: IEvents, container: HTMLFormElement) {
     super(events, container);
-    this.cardButton = ensureElement<HTMLButtonElement>('button[mane="card"]', this.container);
+    this.cardButton = ensureElement<HTMLButtonElement>('button[name="card"]', this.container);
     this.cashButton = ensureElement<HTMLButtonElement>('button[name="cash"]', this.container);
     this.addressInput = ensureElement<HTMLInputElement>('input[name="address"]', this.container);
 
     this.cardButton.addEventListener('click', () => {
-      this.events.emit('orger.payment:change', {
+      this.events.emit('order.payment:change', {
         field: 'payment',
         value: 'card',
       });
     });
 
     this.cashButton.addEventListener('click', () => {
-      this.events.emit('orger.payment:change', {
+      this.events.emit('order.payment:change', {
         field: 'payment',
         value: 'cash',
       });

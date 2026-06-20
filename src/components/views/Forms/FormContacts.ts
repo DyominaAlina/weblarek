@@ -11,7 +11,7 @@ export class FormContacts extends Forms<IFormContacts> {
   protected emailInput: HTMLInputElement;
   protected phoneInput: HTMLInputElement;
 
-  constructor (events: IEvents, container: HTMLElement) {
+  constructor (events: IEvents, container: HTMLFormElement) {
     super(events, container);
     this.emailInput = ensureElement<HTMLInputElement>('input[name="email"]', this.container);
     this.phoneInput = ensureElement<HTMLInputElement>('input[name="phone"]', this.container);
@@ -22,6 +22,6 @@ export class FormContacts extends Forms<IFormContacts> {
   }
 
   set phone (value: string) {
-    this.phoneInput.value = value;
+    this.phoneInput.value = value; 
   }
 }

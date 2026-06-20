@@ -44,15 +44,6 @@ export type OrderResponse = {
 
 export type ValidationErrors = Partial<Record<keyof Customer, string>>;
 
-export interface Product {
-  id: string;
-  title: string;
-  image: string;
-  category: string;
-  price: number | null;
-  description: string;
-}
-
 const events = new EventEmitter();
 
 const cardCatalogTemplate = ensureElement<HTMLTemplateElement>("#card-catalog");

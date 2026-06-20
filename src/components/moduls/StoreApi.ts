@@ -1,4 +1,5 @@
 import { IApi, ApiProductListResponse, OrderRequest, OrderResponse } from '../../types';
+import { CDN_URL } from "../../utils/constants";
 
 export class StoreApi {
   protected api: IApi;
@@ -7,8 +8,16 @@ export class StoreApi {
     this.api = api;
   }
 
- getProductList(): Promise<ApiProductListResponse> {
-  return this.api.get<ApiProductListResponse>('/product/');
+ async getProductList(): Promise<ApiProductListResponse> {
+  const data = await this.api.get<ApiProductListResponse>('/product/');
+
+  return {
+      total: data.total,
+      items: data.items.map((item) => ({
+        ...item,
+        image: `${CDN_URL}/${item.image.replace(/^\/+/, '')}`,
+      })),
+    };
   }
 
   createOrder(order: OrderRequest): Promise<OrderResponse> {

@@ -1,10 +1,11 @@
+import { IEvents } from '../base/Events';
 import { Product } from '../../types';
 
 export class Catalog {
   protected productList: Product[];
   protected product: Product | null;
 
-  constructor(productList: Product[] = [], product: Product | null = null) {
+  constructor(protected events: IEvents, productList: Product[] = [], product: Product | null = null) {
     this.productList = productList;
     this.product = product;
   }
@@ -15,6 +16,7 @@ export class Catalog {
 
   saveCard(product: Product): void {
     this.product = product;
+    this.events.emit('catalog:card-changed', this.product);
   }
 
   getProduct(id: string): Product | undefined {
@@ -27,5 +29,6 @@ export class Catalog {
 
   saveProductList(products: Product[]): void {
     this.productList = products;
+    this.events.emit('catalog:changed');
   }
 }

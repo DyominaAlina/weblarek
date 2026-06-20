@@ -1,9 +1,11 @@
 import { Customer, ValidationErrors } from '../../types';
+import { IEvents } from '../base/Events';
 
 export class Purchase {
   protected purchase: Customer;
 
   constructor(
+    protected events: IEvents,
     purchase: Customer = {
       payment: '',
       address: '',
@@ -23,6 +25,7 @@ export class Purchase {
       ...this.purchase,
       ...data,
     };
+    this.events.emit('purchase:changed');
   }
 
   verificationPurchase(): ValidationErrors {
@@ -54,5 +57,6 @@ export class Purchase {
       email: '',
       phone: '',
     };
+    this.events.emit('purchase:changed');
   }
 }
